@@ -1,8 +1,8 @@
-package com.matsaf123.shoppinglistapp
+package com.matsaf123.shoppinglistapp.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.matsaf123.shoppinglistapp.data.ShoppingItem
+import com.matsaf123.shoppinglistapp.data.db.entities.ShoppingItem
 
 @Dao
 interface ShoppingDao {

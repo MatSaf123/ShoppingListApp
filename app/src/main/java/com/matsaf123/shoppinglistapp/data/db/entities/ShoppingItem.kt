@@ -1,4 +1,4 @@
-package com.matsaf123.shoppinglistapp.data
+package com.matsaf123.shoppinglistapp.data.db.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

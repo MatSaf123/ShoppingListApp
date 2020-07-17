@@ -1,10 +1,11 @@
-package com.matsaf123.shoppinglistapp
+package com.matsaf123.shoppinglistapp.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.matsaf123.shoppinglistapp.data.ShoppingItem
+import com.matsaf123.shoppinglistapp.data.db.entities.ShoppingItem
+
 
 @Database(
     entities = [ShoppingItem::class],
@@ -17,16 +18,12 @@ abstract class ShoppingDatabase : RoomDatabase() {
     companion object {
 
         @Volatile
-
         private var instance : ShoppingDatabase? = null
         private val LOCK = Any()
 
         operator fun invoke(context : Context) = instance
             ?: synchronized(LOCK) {
-            if (instance == null) createDatabase(
-                context
-            )
-                .also { instance = it }
+            instance ?: createDatabase(context).also { instance = it }
         }
 
         private fun createDatabase(context : Context) =
