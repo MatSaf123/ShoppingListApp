@@ -6,18 +6,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.matsaf123.shoppinglistapp.R
-import com.matsaf123.shoppinglistapp.data.db.ShoppingDatabase
 import com.matsaf123.shoppinglistapp.data.db.entities.ShoppingItem
-import com.matsaf123.shoppinglistapp.data.repositories.ShoppingRepository
 import com.matsaf123.shoppinglistapp.other.ShoppingItemAdapter
 import kotlinx.android.synthetic.main.activity_shopping.*
 import org.kodein.di.KodeinAware
-import org.kodein.di.android.kodein     // (1)
+import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
 class ShoppingActivity : AppCompatActivity(), KodeinAware {
 
-    override val kodein by kodein()     // (1)
+    override val kodein by kodein()
     private val factory : ShoppingViewModelFactory by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,13 +31,13 @@ class ShoppingActivity : AppCompatActivity(), KodeinAware {
         viewModel.getAllShoppingItems().observe(this, Observer {
             adapter.items = it
             adapter.notifyDataSetChanged()
-        })  // observe method from LiveData (ShoppingDao); whenever database changes, observe method will be called and code inside the method will be executed
+        })
 
         fab.setOnClickListener{
             AddShoppingItemDialog(this,
             object : AddDialogListener {
                 override fun onAddButtonClicked(item: ShoppingItem) {
-                    viewModel.upsert(item)  //insert item into DB
+                    viewModel.upsert(item)
                 }
             }).show()
         }

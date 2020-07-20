@@ -15,6 +15,7 @@ class AddShoppingItemDialog(context : Context, var addDialogListener: AddDialogL
         setContentView(R.layout.dialog_add_shopping_item)
 
         tvAdd.setOnClickListener {
+
             val name = etName.text.toString()
             val amount = etAmount.text.toString()
 

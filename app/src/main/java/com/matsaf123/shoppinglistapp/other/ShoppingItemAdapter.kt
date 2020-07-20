@@ -11,34 +11,32 @@ import kotlinx.android.synthetic.main.shopping_item.view.*
 
 class ShoppingItemAdapter(
     var items : List<ShoppingItem>,
-    private val viewModel : ShoppingViewModel       // because we need to delete data from adapter, because of 'delete' imageView, so
-                                                    // we need to call delete function from data class
+    private val viewModel : ShoppingViewModel
 
 ) : RecyclerView.Adapter<ShoppingItemAdapter.ShoppingViewHolder>() {
 
-    // ctrl + i:
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingViewHolder { // we want to tell the recyclerViewAdapter which layout we want to have inside of our recyclerView
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.shopping_item, parent, false)
         return ShoppingViewHolder(view)
     }
 
-    override fun getItemCount(): Int {  // size of our recyclerView
+    override fun getItemCount(): Int {
         return items.size
     }
 
-    override fun onBindViewHolder(holder: ShoppingViewHolder, position: Int) {  // here we set all values of views and onClickListeners
+    override fun onBindViewHolder(holder: ShoppingViewHolder, position: Int) {
         val currShoppingItem = items[position]
 
         holder.itemView.tvName.text = currShoppingItem.name
-        holder.itemView.tvAmount.text = "${currShoppingItem.amount}"    // $ because it's integer
+        holder.itemView.tvAmount.text = "${currShoppingItem.amount}"
 
         holder.itemView.ivDelete.setOnClickListener {
             viewModel.delete(currShoppingItem)
         }
 
         holder.itemView.ivPlus.setOnClickListener {
-            currShoppingItem.amount++
+            if(currShoppingItem.amount<Int.MAX_VALUE)
+                currShoppingItem.amount++
             viewModel.upsert(currShoppingItem)
         }
 

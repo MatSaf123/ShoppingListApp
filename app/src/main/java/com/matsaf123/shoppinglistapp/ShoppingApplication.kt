@@ -15,9 +15,8 @@ import org.kodein.di.generic.singleton
 class ShoppingApplication : Application(), KodeinAware {
 
     override val kodein: Kodein = Kodein.lazy {
-        //  lazy means that inside this block we can use application context during binding time
         import(androidXModule(this@ShoppingApplication))
-        bind() from singleton { ShoppingDatabase(instance()) }      // had to add some code in build.gradle
+        bind() from singleton { ShoppingDatabase(instance()) }
         bind() from singleton { ShoppingRepository(instance()) }
         bind() from provider {
             ShoppingViewModelFactory(instance())
