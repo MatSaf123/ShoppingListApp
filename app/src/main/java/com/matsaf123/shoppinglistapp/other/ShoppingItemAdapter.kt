@@ -34,6 +34,12 @@ class ShoppingItemAdapter(
 
         holder.itemView.tvName.text = currShoppingItem.name
         holder.itemView.tvAmount.text = "${currShoppingItem.amount}"
+        holder.itemView.checkBox.isChecked = currShoppingItem.isChecked
+
+        holder.itemView.checkBox.setOnClickListener {
+            currShoppingItem.isChecked = it.checkBox.isChecked
+            viewModel.upsert(currShoppingItem)
+        }
 
         holder.itemView.ivDelete.setOnClickListener {
             viewModel.delete(currShoppingItem)
