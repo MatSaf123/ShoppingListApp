@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.matsaf123.shoppinglistapp.R
 import com.matsaf123.shoppinglistapp.data.db.entities.ShoppingItem
 import com.matsaf123.shoppinglistapp.other.ShoppingItemAdapter
+import com.matsaf123.shoppinglistapp.ui.shoppinglist.dialogs.AddDialogListener
+import com.matsaf123.shoppinglistapp.ui.shoppinglist.dialogs.AddShoppingItemDialog
 import kotlinx.android.synthetic.main.activity_shopping.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
@@ -34,12 +36,14 @@ class ShoppingActivity : AppCompatActivity(), KodeinAware {
         })
 
         fab.setOnClickListener{
-            AddShoppingItemDialog(this,
-            object : AddDialogListener {
-                override fun onAddButtonClicked(item: ShoppingItem) {
-                    viewModel.upsert(item)
-                }
-            }).show()
+            AddShoppingItemDialog(
+                this,
+                object :
+                    AddDialogListener {
+                    override fun onAddButtonClicked(item: ShoppingItem) {
+                        viewModel.upsert(item)
+                    }
+                }).show()
         }
     }
 }
